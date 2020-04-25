@@ -11,18 +11,10 @@ export class TasksController {
 
     constructor(private tasksService:TasksService){}
 
-    // @Get()
-    // GetTask(@Query() filterdto: filterTaskDto):Task[]
-    // {
-    //     if(Object.keys(filterdto).length)
-    //     {
-    //         return this.tasksService.FilterTask(filterdto);
-    //     }
-    //     else{
-    //         return this.tasksService.GetAlltasks();
-
-    //     }
-    // }
+    @Get()
+    GetTask(@Query() filterdto:filterTaskDto):Promise<TaskEntity[]>{
+        return this.tasksService.GetTasks(filterdto);
+    }
 
     @Get('/:id')
     GetTaskById(@Param('id', ParseIntPipe) id:number) : Promise<TaskEntity>
