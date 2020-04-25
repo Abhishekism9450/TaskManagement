@@ -4,6 +4,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { filterTaskDto } from './dto/get-task-filter.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 import { TaskEntity } from './task.entity';
+import { TaskStatus } from './task-status.enum';
 
 @Controller('tasks')
 export class TasksController {
@@ -37,9 +38,9 @@ export class TasksController {
     CreateTask(@Body() createtaskdto:CreateTaskDto):Promise<TaskEntity>{
         return this.tasksService.CreateTask(createtaskdto);
     }
-    // @Patch('/:id/:status')
-    // Updatetask(@Param('id') id:string, @Param('status', TaskStatusValidationPipe) status:string)
-    // {
-    //     return this.tasksService.UpdateTaskById(id,status);
-    // }
+    @Patch('/:id/:status')
+    Updatetask(@Param('id', ParseIntPipe) id:number, @Param('status', TaskStatusValidationPipe) status:TaskStatus):Promise<TaskEntity>
+    {
+        return this.tasksService.UpdateTaskById(id,status);
+    }
 }
