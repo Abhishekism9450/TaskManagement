@@ -16,10 +16,16 @@ export class TasksController {
     constructor(private tasksService:TasksService){}
 
     @Get()
-    GetTask(@Query() filterdto:filterTaskDto):Promise<TaskEntity[]>{
-        return this.tasksService.GetTasks(filterdto);
+    GetTask(@Query() filterdto:filterTaskDto,
+            @GetUser() user:User
+    ):Promise<TaskEntity[]>{
+        return this.tasksService.GetTasks(filterdto,user);
     }
 
+    @Get('/all')
+    GetAllTask(){
+        return this.tasksService.GetAllTasks();
+    }
     @Get('/:id')
     GetTaskById(@Param('id', ParseIntPipe) id:number) : Promise<TaskEntity>
     {
